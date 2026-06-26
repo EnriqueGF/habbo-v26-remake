@@ -10,7 +10,6 @@ use App\Http\Controllers\MeController;
 use App\Http\Controllers\NewsController;
 use App\Http\Controllers\PageController;
 use App\Http\Controllers\StatusController;
-use App\Http\Controllers\UserProfileController;
 use App\Legacy\LegacyRunner;
 use Illuminate\Cookie\Middleware\EncryptCookies;
 use Illuminate\Foundation\Http\Middleware\PreventRequestForgery;
@@ -56,8 +55,6 @@ Route::middleware('legacy.user')->group(function () {
     Route::post('/account/profile', [AccountController::class, 'updateProfile'])->name('account.profile');
     Route::post('/account/password', [AccountController::class, 'updatePassword'])->name('account.password');
 
-    Route::get('/profile', [UserProfileController::class, 'show'])->name('profile');
-
     Route::get('/community', [CommunityController::class, 'index'])->name('community');
     Route::get('/news', [NewsController::class, 'index'])->name('news');
     Route::get('/help', [HelpController::class, 'index'])->name('help');
@@ -79,7 +76,7 @@ Route::middleware('legacy.user')->group(function () {
 | LegacyRunner. Se eliminará cuando el legacy se retire (Fase 5).
 */
 $legacyAliases = [
-    'me.php' => 'me', 'account.php' => 'account', 'user_profile.php' => 'profile',
+    'me.php' => 'me', 'account.php' => 'account',
     'community.php' => 'community', 'news.php' => 'news', 'help.php' => 'help',
     'credits.php' => 'credits', 'club.php' => 'club',
     'privacy.php' => 'privacy', 'disclaimer.php' => 'disclaimer',

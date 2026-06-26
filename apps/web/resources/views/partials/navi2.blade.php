@@ -9,7 +9,7 @@
 <ul>
     @if($section === 'home')
         <li class="{{ $active === 'inicio' ? 'selected' : '' }}">@if($active === 'inicio')Inicio @else<a href="/index.php">Inicio</a>@endif</li>
-        <li class="{{ $active === 'homepage' ? 'selected' : '' }}">@if($active === 'homepage')Mi Homepage @else<a href="/profile?name={{ urlencode($me) }}">Mi Homepage</a>@endif</li>
+        <li class="{{ $active === 'homepage' ? 'selected' : '' }}">@if($active === 'homepage')Mi Homepage @else<a href="/user_profile.php?name={{ urlencode($me) }}">Mi Homepage</a>@endif</li>
         <li class="{{ $active === 'preferencias' ? 'selected' : '' }}">@if($active === 'preferencias')Mis preferencias @else<a href="/account">Mis preferencias</a>@endif</li>
         <li class="{{ $active === 'hand' ? 'selected' : '' }}">@if($active === 'hand')Vac&iacute;a tu mano @else<a href="/deletehand.php">Vac&iacute;a tu mano</a>@endif</li>
         <li class="last"><a href="/club">{{ $shortname }} Club</a></li>

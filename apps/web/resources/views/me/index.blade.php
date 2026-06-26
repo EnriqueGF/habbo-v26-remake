@@ -19,7 +19,7 @@
         </li>
 
         <li class="">
-            <a href="/profile?name={{ urlencode($user->name) }}">Mi Homepage</a>
+            <a href="/user_profile.php?name={{ urlencode($user->name) }}">Mi Homepage</a>
         </li>
 
         <li class="">
@@ -190,7 +190,7 @@
                     <div id="habbo-search-error-container" style="display: none;"><div id="habbo-search-error" class="rounded rounded-red"></div></div>
                     <br clear="all"/>
                     <div id="avatar-habblet-list-search">
-                        <form name="habbo_search_form" action="/profile" style="display:inline">
+                        <form name="habbo_search_form" action="/user_profile.php" style="display:inline">
                             <input type="text" name="tag" id="avatar-habblet-search-string"/>
                             <a href="#" onclick="$(this).up('form').submit(); return false;" id="avatar-habblet-search-button" class="new-button"><b>Buscar</b><i></i></a>
                         </form>
@@ -229,7 +229,7 @@
                                 </li>
                             @endforeach
                         </ul>
-                        <div class="habblet-button-row clearfix"><a class="new-button" id="purchase-group-button" href="/group_create.php"><b>Crear un grupo</b><i></i></a></div>
+                        <div class="habblet-button-row clearfix"><a class="new-button" id="purchase-group-button" href="#"><b>Crear un grupo</b><i></i></a></div>
                     </div>
                     <div id="groups-habblet-group-purchase-button" class="habblet-list-container"></div>
                 </div>
@@ -392,7 +392,7 @@
                                         <span class="room-enter">Entrar</span>
                                         <span class="room-name">{{ $room->name }}</span>
                                         <span class="room-description">{{ $room->description }}</span>
-                                        <span class="room-owner">Creador: <a href="/profile?name={{ urlencode($room->owner) }}">{{ $room->owner }}</a></span>
+                                        <span class="room-owner">Creador: <a href="/user_profile.php?name={{ urlencode($room->owner) }}">{{ $room->owner }}</a></span>
                                     </span>
                                 </li>
                             @empty

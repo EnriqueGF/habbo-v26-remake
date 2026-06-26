@@ -30,7 +30,7 @@
                                         <span class="room-name">{{ $room->name }}</span>
                                         <span class="room-description">{{ $room->description }}</span>
                                         <span class="room-owner">Visitantes: <b>{{ (int) ($room->visitors_now ?? 0) }}</b></span>
-                                        <span class="room-owner">Creador: <a href="/profile?name={{ urlencode($room->owner) }}">{{ $room->owner }}</a></span>
+                                        <span class="room-owner">Creador: <a href="/user_profile.php?name={{ urlencode($room->owner) }}">{{ $room->owner }}</a></span>
                                     </span>
                                 </li>
                             @empty
@@ -57,7 +57,7 @@
                                 <p class="moto">{{ $user->mission }}</p>
                             </div>
                         </div>
-                        <input type="hidden" id="active-habbo-url-{{ $i }}" value="/profile?name={{ urlencode($user->name) }}" />
+                        <input type="hidden" id="active-habbo-url-{{ $i }}" value="/user_profile.php?name={{ urlencode($user->name) }}" />
                         <input type="hidden" id="active-habbo-image-{{ $i }}" class="active-habbo-image" value="/habbo-imaging/avatarimage.php?figure={{ urlencode($user->figure ?? '') }}&size=b&direction=3&head_direction=3&gesture=sml" />
                     @endforeach
 

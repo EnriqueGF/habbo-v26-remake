@@ -44,7 +44,7 @@
                         <div class="article-body">
                             <p>{!! nl2br($article->story) !!}</p>
                             <div class="article-body">
-                                <a href="/profile?name={{ urlencode($article->author) }}" target="_self">
+                                <a href="/user_profile.php?name={{ urlencode($article->author) }}" target="_self">
                                     <img src="/web-gallery/album1/users_online.PNG" alt="User Profile" border="0" />
                                 </a>
                                 <b>{{ $article->author }}</b>
