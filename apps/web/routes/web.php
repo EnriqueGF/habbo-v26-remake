@@ -9,6 +9,7 @@ use App\Http\Controllers\HelpController;
 use App\Http\Controllers\MeController;
 use App\Http\Controllers\NewsController;
 use App\Http\Controllers\PageController;
+use App\Http\Controllers\ShopController;
 use App\Http\Controllers\StatusController;
 use App\Http\Controllers\VipController;
 use App\Legacy\LegacyRunner;
@@ -64,6 +65,9 @@ Route::middleware('legacy.user')->group(function () {
     Route::get('/club', [ClubController::class, 'index'])->name('club');
     Route::post('/club/purchase', [ClubController::class, 'purchase'])->name('club.purchase');
 
+    Route::get('/shop', [ShopController::class, 'index'])->name('shop');
+    Route::post('/shop/purchase', [ShopController::class, 'purchase'])->name('shop.purchase');
+
     Route::get('/vip', [VipController::class, 'index'])->name('vip');
 
     Route::get('/privacy', [PageController::class, 'privacy'])->name('privacy');
@@ -82,6 +86,7 @@ $legacyAliases = [
     'me.php' => 'me', 'account.php' => 'account',
     'community.php' => 'community', 'news.php' => 'news', 'help.php' => 'help',
     'credits.php' => 'credits', 'club.php' => 'club', 'vip.php' => 'vip',
+    'shop_furni.php' => 'shop',
     'privacy.php' => 'privacy', 'disclaimer.php' => 'disclaimer',
 ];
 foreach ((env('DISABLE_PHP_REDIRECTS') ? [] : $legacyAliases) as $php => $name) {

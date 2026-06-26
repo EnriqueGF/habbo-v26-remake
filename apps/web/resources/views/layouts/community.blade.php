@@ -114,7 +114,7 @@
                     @if($active === 'credits')<strong>Cr&eacute;ditos</strong>@else<a href="/credits">Cr&eacute;ditos</a>@endif<span></span>
                 </li>
                 <li class="{{ $active === 'shop' ? 'selected' : '' }}">
-                    @if($active === 'shop')<strong>Tienda {{ $shortname }}</strong>@else<a href="/shop_furni.php">Tienda {{ $shortname }}</a>@endif<span></span>
+                    @if($active === 'shop')<strong>Tienda {{ $shortname }}</strong>@else<a href="/shop">Tienda {{ $shortname }}</a>@endif<span></span>
                 </li>
                 <li class="{{ $active === 'vip' ? 'selected' : '' }}">
                     @if($active === 'vip')<strong>VIP Club</strong>@else<a href="/vip">VIP Club</a>@endif<span></span>

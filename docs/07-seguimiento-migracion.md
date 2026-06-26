@@ -17,22 +17,24 @@ Leyenda: ✅ migrada y probada · 🟡 en curso · ⬜ pendiente (servida por el
 | Modelo `User`, `LegacySession`, middleware `legacy.user` | ✅ |
 | BD de test `v26_test` (InnoDB) + CI (Pint + PHPUnit) | ✅ |
 
-## Núcleo / cuenta (player-facing)
-| Ruta | Legacy | Estado | Tests |
-|------|--------|--------|-------|
-| `POST /` (login), `/logout.php` | index.php / logout.php | ✅ | ✅ |
-| `/news.php` | news.php | ✅ | ✅ |
-| `/help.php` | help.php | ✅ | ✅ |
-| `/credits.php` | credits.php | ✅ | ✅ |
-| `/disclaimer.php`, `/privacy.php` | disclaimer/privacy.php | ✅ | ✅ |
-| `/account.php` (+ /profile, /password) | account.php | ✅ | ✅ |
-| `/me.php` (dashboard; + POST feed/remove) | me.php | ✅ | ✅ |
-| `/community.php` | community.php | ✅ | ✅ |
-| `/club.php` (+ /purchase) | club.php | ✅ | ✅ |
-| `/badges.php` | badges.php | ⬜ | |
-| `/register.php` | register.php | ⬜ | |
-| `/forgot.php` | forgot.php | ⬜ | |
-| `/user_profile.php` (render solo lectura; edición widgets sigue en legacy) | user_profile.php | ✅ | ✅ |
+## Núcleo / cuenta (player-facing) — URLs limpias (`.php` redirige 301)
+| Ruta nativa | Legacy | Estado | Tests |
+|-------------|--------|--------|-------|
+| `POST /` (login), `/logout` | index.php / logout.php | ✅ | ✅ |
+| `/news` | news.php | ✅ | ✅ |
+| `/help` | help.php | ✅ | ✅ |
+| `/credits` | credits.php | ✅ | ✅ |
+| `/privacy`, `/disclaimer` | privacy/disclaimer.php | ✅ | ✅ |
+| `/account` (+ /account/profile, /account/password) | account.php | ✅ | ✅ |
+| `/me` (dashboard; + POST /me/feed/remove) | me.php | ✅ | ✅ |
+| `/community` | community.php | ✅ | ✅ |
+| `/club` (+ /club/purchase) | club.php | ✅ | ✅ |
+| `/shop` (+ /shop/purchase) | shop_furni.php | ✅ | ✅ |
+| `/vip` | vip.php | ✅ | ✅ |
+| `/badges` | badges.php | ⬜ | |
+| `/register` | register.php | ⬜ | |
+| `/forgot` | forgot.php | ⬜ | |
+| `user_profile.php` (myhabbo) | user_profile.php | ⬜ (diferido: motor de widgets JS; servido por legacy) | |
 
 ## Comunidad
 | Ruta | Legacy | Estado |
