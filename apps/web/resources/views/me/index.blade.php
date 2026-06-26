@@ -3,6 +3,13 @@
 @section('title', $chromeUser->name)
 @php($activeNav = 'home')
 
+{{-- CSS/JS específicos de esta página que carga el legacy me.php (caja de mensajes, HC). --}}
+@push('head')
+    <link rel="stylesheet" href="/web-gallery/v2/styles/minimail.css" type="text/css" />
+    <script src="/web-gallery/static/js/minimail.js" type="text/javascript"></script>
+    <script src="/web-gallery/static/js/habboclub.js" type="text/javascript"></script>
+@endpush
+
 {{-- Barra de segundo nivel (#navi2), idéntica al legacy. El layout la envuelve en
      #navi2-container/#navi2 y solo la muestra si la vista define este section. --}}
 @section('subnav')

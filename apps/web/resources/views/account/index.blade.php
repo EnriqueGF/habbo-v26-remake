@@ -4,28 +4,15 @@
 @section('bodyId', 'profile')
 @php($activeNav = 'home')
 
+{{-- CSS/JS específicos del editor de aspecto/preferencias del legacy account.php. --}}
+@push('head')
+    <link rel="stylesheet" href="/web-gallery/v2/styles/settings.css" type="text/css" />
+    <link rel="stylesheet" href="/web-gallery/v2/styles/friendmanagement.css" type="text/css" />
+    <script src="/web-gallery/static/js/settings.js" type="text/javascript"></script>
+@endpush
+
 @section('subnav')
-    <div id="navi2-container" class="pngbg">
-        <div id="navi2" class="pngbg clearfix">
-            <ul>
-                <li class="">
-                    <a href="/index.php">Inicio</a>
-                </li>
-                <li class="">
-                    <a href="/profile?name={{ urlencode($chromeUser->name) }}">Mi Homepage</a>
-                </li>
-                <li class="selected">
-                    Mis preferencias
-                </li>
-                <li class="">
-                    <a href="/deletehand.php">Vac&iacute;a tu mano</a>
-                </li>
-                <li class="last">
-                    <a href="/club">Habbo Club</a>
-                </li>
-            </ul>
-        </div>
-    </div>
+    @include('partials.navi2', ['section' => 'home', 'active' => 'preferencias'])
 @endsection
 
 @section('content')

@@ -3,6 +3,10 @@
 @section('title', $shortname.' Club')
 @php($activeNav = 'credits')
 
+@push('head')
+    <script src="/web-gallery/static/js/habboclub.js" type="text/javascript"></script>
+@endpush
+
 @section('subnav')
     @include('partials.navi2', ['section' => 'credits', 'active' => 'club'])
 @endsection
