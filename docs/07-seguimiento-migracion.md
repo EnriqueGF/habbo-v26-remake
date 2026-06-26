@@ -31,7 +31,14 @@ Leyenda: ✅ migrada y probada · 🟡 en curso · ⬜ pendiente (servida por el
 | `/club` (+ /club/purchase) | club.php | ✅ | ✅ |
 | `/shop` (+ /shop/purchase) | shop_furni.php | ✅ | ✅ |
 | `/vip` | vip.php | ✅ | ✅ |
-| `/badges` | badges.php | ⬜ | |
+| `/badges` | badges.php | ✅ | ✅ |
+| `/transactions` | transactions.php | ✅ | ✅ |
+| `/deletehand` (+ POST /deletehand) | deletehand.php | ✅ | ✅ |
+| `/collectables` | collectables.php | ✅ | ✅ |
+| `/pixels` | pixels.php | ✅ | ✅ |
+| `/statistics` | statistics.php | ✅ | ✅ |
+| `/staff` | staff.php | ✅ | ✅ |
+| `/tags` (display; alta de tag diferida) | tags.php | ✅ | ✅ |
 | `/register` | register.php | ⬜ | |
 | `/forgot` | forgot.php | ⬜ | |
 | `user_profile.php` (myhabbo) | user_profile.php | ⬜ (diferido: motor de widgets JS; servido por legacy) | |

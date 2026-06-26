@@ -2,15 +2,23 @@
 
 use App\Http\Controllers\AccountController;
 use App\Http\Controllers\Auth\LoginController;
+use App\Http\Controllers\BadgesController;
 use App\Http\Controllers\ClubController;
+use App\Http\Controllers\CollectablesController;
 use App\Http\Controllers\CommunityController;
 use App\Http\Controllers\CreditsController;
+use App\Http\Controllers\DeleteHandController;
 use App\Http\Controllers\HelpController;
 use App\Http\Controllers\MeController;
 use App\Http\Controllers\NewsController;
 use App\Http\Controllers\PageController;
+use App\Http\Controllers\PixelsController;
 use App\Http\Controllers\ShopController;
+use App\Http\Controllers\StaffController;
+use App\Http\Controllers\StatisticsController;
 use App\Http\Controllers\StatusController;
+use App\Http\Controllers\TagsController;
+use App\Http\Controllers\TransactionsController;
 use App\Http\Controllers\VipController;
 use App\Legacy\LegacyRunner;
 use Illuminate\Cookie\Middleware\EncryptCookies;
@@ -69,6 +77,19 @@ Route::middleware('legacy.user')->group(function () {
     Route::post('/shop/purchase', [ShopController::class, 'purchase'])->name('shop.purchase');
 
     Route::get('/vip', [VipController::class, 'index'])->name('vip');
+    Route::get('/badges', [BadgesController::class, 'index'])->name('badges');
+
+    // Sección créditos
+    Route::get('/transactions', [TransactionsController::class, 'index'])->name('transactions');
+    Route::get('/deletehand', [DeleteHandController::class, 'index'])->name('deletehand');
+    Route::post('/deletehand', [DeleteHandController::class, 'empty'])->name('deletehand.empty');
+    Route::get('/collectables', [CollectablesController::class, 'index'])->name('collectables');
+    Route::get('/pixels', [PixelsController::class, 'index'])->name('pixels');
+
+    // Sección comunidad
+    Route::get('/statistics', [StatisticsController::class, 'index'])->name('statistics');
+    Route::get('/staff', [StaffController::class, 'index'])->name('staff');
+    Route::get('/tags', [TagsController::class, 'index'])->name('tags');
 
     Route::get('/privacy', [PageController::class, 'privacy'])->name('privacy');
     Route::get('/disclaimer', [PageController::class, 'disclaimer'])->name('disclaimer');
@@ -86,7 +107,10 @@ $legacyAliases = [
     'me.php' => 'me', 'account.php' => 'account',
     'community.php' => 'community', 'news.php' => 'news', 'help.php' => 'help',
     'credits.php' => 'credits', 'club.php' => 'club', 'vip.php' => 'vip',
-    'shop_furni.php' => 'shop',
+    'shop_furni.php' => 'shop', 'badges.php' => 'badges',
+    'transactions.php' => 'transactions', 'deletehand.php' => 'deletehand',
+    'collectables.php' => 'collectables', 'pixels.php' => 'pixels',
+    'statistics.php' => 'statistics', 'staff.php' => 'staff', 'tags.php' => 'tags',
     'privacy.php' => 'privacy', 'disclaimer.php' => 'disclaimer',
 ];
 foreach ((env('DISABLE_PHP_REDIRECTS') ? [] : $legacyAliases) as $php => $name) {
