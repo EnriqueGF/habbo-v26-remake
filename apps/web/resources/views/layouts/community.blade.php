@@ -117,7 +117,7 @@
                     @if($active === 'shop')<strong>Tienda {{ $shortname }}</strong>@else<a href="/shop_furni.php">Tienda {{ $shortname }}</a>@endif<span></span>
                 </li>
                 <li class="{{ $active === 'vip' ? 'selected' : '' }}">
-                    @if($active === 'vip')<strong>VIP Club</strong>@else<a href="/vip.php">VIP Club</a>@endif<span></span>
+                    @if($active === 'vip')<strong>VIP Club</strong>@else<a href="/vip">VIP Club</a>@endif<span></span>
                 </li>
                 @if($loggedIn && (int) ($chromeUser->rank ?? 0) > 5)
                     <li id="tab-register-now"><a href="/housekeeping/" target="_self"><b>Administraci&oacute;n</b></a><span></span></li>

@@ -10,6 +10,7 @@ use App\Http\Controllers\MeController;
 use App\Http\Controllers\NewsController;
 use App\Http\Controllers\PageController;
 use App\Http\Controllers\StatusController;
+use App\Http\Controllers\VipController;
 use App\Legacy\LegacyRunner;
 use Illuminate\Cookie\Middleware\EncryptCookies;
 use Illuminate\Foundation\Http\Middleware\PreventRequestForgery;
@@ -63,6 +64,8 @@ Route::middleware('legacy.user')->group(function () {
     Route::get('/club', [ClubController::class, 'index'])->name('club');
     Route::post('/club/purchase', [ClubController::class, 'purchase'])->name('club.purchase');
 
+    Route::get('/vip', [VipController::class, 'index'])->name('vip');
+
     Route::get('/privacy', [PageController::class, 'privacy'])->name('privacy');
     Route::get('/disclaimer', [PageController::class, 'disclaimer'])->name('disclaimer');
 });
@@ -78,7 +81,7 @@ Route::middleware('legacy.user')->group(function () {
 $legacyAliases = [
     'me.php' => 'me', 'account.php' => 'account',
     'community.php' => 'community', 'news.php' => 'news', 'help.php' => 'help',
-    'credits.php' => 'credits', 'club.php' => 'club',
+    'credits.php' => 'credits', 'club.php' => 'club', 'vip.php' => 'vip',
     'privacy.php' => 'privacy', 'disclaimer.php' => 'disclaimer',
 ];
 foreach ((env('DISABLE_PHP_REDIRECTS') ? [] : $legacyAliases) as $php => $name) {
