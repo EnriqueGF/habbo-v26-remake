@@ -5,160 +5,158 @@
 <h1 align="center">Habbo V26 · Remake</h1>
 
 <p align="center">
-  <i>Un proyecto personal para poner al día mi versión favorita de Habbo Hotel: la <b>v26</b> (2008–2009).</i>
+  <i>A personal project to bring my favourite version of Habbo Hotel back to life: <b>v26</b> (2008–2009).</i>
 </p>
 
 <p align="center">
-  <img alt="estado" src="https://img.shields.io/badge/estado-en%20desarrollo-orange">
+  <img alt="status" src="https://img.shields.io/badge/status-in%20development-orange">
   <img alt="docker" src="https://img.shields.io/badge/Docker-Compose-2496ED?logo=docker&logoColor=white">
   <img alt="php" src="https://img.shields.io/badge/PHP-8.3%20(Laravel%2013)-777BB4?logo=php&logoColor=white">
-  <img alt="wasm" src="https://img.shields.io/badge/cliente-WebAssembly-654FF0?logo=webassembly&logoColor=white">
-  <img alt="idioma" src="https://img.shields.io/badge/idioma-Español-c60b1e">
+  <img alt="wasm" src="https://img.shields.io/badge/client-WebAssembly-654FF0?logo=webassembly&logoColor=white">
 </p>
 
 ---
 
-## 👋 ¿Qué es esto?
+## 👋 What is this?
 
-La **v26** fue la versión de Habbo Hotel de **2008–2009**: el cliente clásico hecho en
-**Adobe Shockwave**, con su vista de hotel, su navegador de salas y ese pixel-art que
-muchos recordamos con cariño. Era **mi versión favorita** y este repo es mi intento
-personal de **rescatarla y ponerla al día** para que funcione en un mundo moderno.
+**v26** was the Habbo Hotel release from **2008–2009**: the classic client built on
+**Adobe Shockwave**, with its hotel view, room navigator and that pixel-art so many of
+us remember fondly. It was **my favourite version**, and this repo is my personal
+attempt to **rescue it and bring it up to date** so it runs in a modern world.
 
-El problema: la v26 dependía de **Shockwave**, una tecnología muerta que **ningún
-navegador actual ejecuta**, y de un emulador pensado para **Windows**. Este proyecto
-lo resuelve: levanta todo el hotel —web, base de datos, emulador y cliente— **con un
-solo `docker compose up`**, sin Windows, sin plugins, y con el cliente corriendo
-**dentro del navegador mediante WebAssembly**.
+The catch: v26 relied on **Shockwave** — a dead technology **no current browser runs** —
+and on an emulator built for **Windows**. This project fixes that: it spins up the whole
+hotel —website, database, emulator and client— with a **single `docker compose up`**,
+no Windows, no plugins, and with the client running **inside the browser via WebAssembly**.
 
-> ⚠️ **Proyecto personal y educativo**, sin ánimo de lucro. No está afiliado a Sulake.
-> *Habbo* y *Habbo Hotel* son marcas de **Sulake Oy**; todos los assets originales
-> pertenecen a sus dueños.
-
----
-
-## ✨ Lo que ya funciona
-
-- 🐳 **Todo dockerizado** — un único `docker compose up` levanta la base de datos, la
-  web, los assets del cliente, el emulador y el puente de red.
-- 🎮 **El cliente v26 corre en el navegador** — el cliente Shockwave se ejecuta vía
-  **[DirPlayer](https://github.com/igorlira/dirplayer-rs)** (un reproductor de
-  Director/Shockwave en Rust → WebAssembly). Renderiza el hotel, conecta con el
-  emulador, hace login y navega salas. **Sin Shockwave, sin PaleMoon, sin plugins.**
-- 🧬 **Emulador sin Windows** — el *Holograph Emulator* (.NET) se **recompila con Mono**
-  y se conecta a la base de datos por **ODBC**, todo dentro de un contenedor Linux.
-- 🌐 **Puente WebSocket ↔ TCP** — como los navegadores no abren sockets TCP, un proxy
-  traduce la conexión del cliente al emulador.
-- 🧑‍🎨 **Editor de avatares (kekos)** — el editor Flash original corre con
-  **[Ruffle](https://ruffle.rs/)** (Flash → WebAssembly); puedes cambiar tu look y
-  guardarlo.
-- 🇪🇸 **Todo en español** — CMS y cliente traducidos por completo, con la **vista de
-  hotel española**.
-- 🖼️ **Avatares servidos en local** — generación de imágenes de avatar con caché propia.
+> ⚠️ **Personal, educational project**, non-commercial. Not affiliated with Sulake.
+> *Habbo* and *Habbo Hotel* are trademarks of **Sulake Oy**; all original assets belong
+> to their owners.
 
 ---
 
-## 🛠️ En lo que estoy trabajando (rework)
+## ✨ What already works
 
-Este es el corazón del proyecto: modernizar las tripas sin perder la esencia v26.
-
-| Área | De | A | Estado |
-|------|----|----|--------|
-| **Web / CMS** | HoloCMS (PHP 5.2, 2008) | **Laravel 13 / PHP 8.3** | 🟡 migración por fases (*strangler pattern*) |
-| **Cliente** | Shockwave plugin | **DirPlayer (WASM)** | 🟢 jugable, puliendo |
-| **Editor de avatares** | Flash plugin | **Ruffle (WASM)** | 🟢 funcionando |
-| **Emulador** | binario Windows | **Mono + ODBC (Linux)** | 🟢 funcionando |
-| **Infra** | VPS Windows manual | **Docker Compose** | 🟢 funcionando |
-| **Idioma** | francés / inglés | **español** | 🟢 completado |
-
-El CMS legacy se va reemplazando **pieza a pieza** por Laravel mientras sigue
-funcionando en cada momento (en vez de una reescritura de golpe). El plan completo
-y el seguimiento están en [`/docs`](docs/).
-
-**Siguientes pasos:** seguir migrando vistas del CMS a Laravel, pulir la fidelidad
-visual del cliente, y avanzar hacia un imager de avatares 100 % local.
+- 🐳 **Fully dockerized** — a single `docker compose up` brings up the database, the
+  website, the client assets, the emulator and the network bridge.
+- 🎮 **The v26 client runs in the browser** — the Shockwave client runs via
+  **[DirPlayer](https://github.com/igorlira/dirplayer-rs)** (a Director/Shockwave player
+  in Rust → WebAssembly). It renders the hotel, connects to the emulator, logs in and
+  browses rooms. **No Shockwave, no PaleMoon, no plugins.**
+- 🧬 **No Windows for the emulator** — the *Holograph Emulator* (.NET) is **recompiled
+  with Mono** and talks to the database over **ODBC**, all inside a Linux container.
+- 🌐 **WebSocket ↔ TCP bridge** — since browsers can't open raw TCP sockets, a proxy
+  translates the client's connection to the emulator.
+- 🧑‍🎨 **Avatar editor** — the original Flash editor runs with
+  **[Ruffle](https://ruffle.rs/)** (Flash → WebAssembly); you can change your look and
+  save it.
+- 🌍 **Fully localized in Spanish** — CMS and client translated end to end, with the
+  **Spanish hotel view**.
+- 🖼️ **Locally served avatars** — avatar image generation with its own cache.
 
 ---
 
-## 🚀 Cómo levantarlo
+## 🛠️ What I'm reworking
 
-Requisitos: **Docker** y **Docker Compose**.
+This is the heart of the project: modernise the internals without losing the v26 soul.
+
+| Area | From | To | Status |
+|------|------|----|--------|
+| **Web / CMS** | HoloCMS (PHP 5.2, 2008) | **Laravel 13 / PHP 8.3** | 🟡 phased migration (*strangler pattern*) |
+| **Client** | Shockwave plugin | **DirPlayer (WASM)** | 🟢 playable, polishing |
+| **Avatar editor** | Flash plugin | **Ruffle (WASM)** | 🟢 working |
+| **Emulator** | Windows binary | **Mono + ODBC (Linux)** | 🟢 working |
+| **Infra** | manual Windows VPS | **Docker Compose** | 🟢 working |
+| **Language** | French / English | **Spanish** | 🟢 done |
+
+The legacy CMS is being replaced **piece by piece** by Laravel while staying functional
+at every step (instead of a big-bang rewrite). The full plan and tracking live in
+[`/docs`](docs/).
+
+**Next steps:** keep migrating CMS views to Laravel, polish the client's visual
+fidelity, and move towards a 100% local avatar imager.
+
+---
+
+## 🚀 Getting started
+
+Requirements: **Docker** and **Docker Compose**.
 
 ```bash
 git clone https://github.com/EnriqueGF/habbo-v26-remake.git
 cd habbo-v26-remake
-docker compose up -d        # la primera vez compila el emulador (Mono) — tarda un poco
+docker compose up -d        # first run compiles the emulator (Mono) — takes a moment
 ```
 
-Cuando los contenedores estén arriba:
+Once the containers are up:
 
-| Servicio | URL / Puerto |
-|----------|--------------|
-| 🌐 **Web del hotel** | http://localhost:8090 |
-| 📦 Assets del cliente (DCRs) | http://localhost:8091 |
-| 🎮 Emulador (juego / MUS) | `127.0.0.1:1232` · `30000` |
-| 🔌 Puente WebSocket↔TCP | `8092` · `8093` |
-| 🗄️ Base de datos (MariaDB) | `127.0.0.1:3307` |
+| Service | URL / Port |
+|---------|------------|
+| 🌐 **Hotel website** | http://localhost:8090 |
+| 📦 Client assets (DCRs) | http://localhost:8091 |
+| 🎮 Emulator (game / MUS) | `127.0.0.1:1232` · `30000` |
+| 🔌 WebSocket↔TCP bridge | `8092` · `8093` |
+| 🗄️ Database (MariaDB) | `127.0.0.1:3307` |
 
-**Cuenta de administrador de ejemplo:** `admin` / `admin`
+**Sample admin account:** `admin` / `admin`
 
-Para entrar al hotel: regístrate o entra con la cuenta admin y pulsa **«Entrar a Habbo»**.
-El cliente carga en el navegador (recomendado **Chrome/Edge** por su soporte de WebGPU,
-que da el mejor render del editor de avatares).
+To enter the hotel: register or log in with the admin account and click **"Enter Habbo"**.
+The client loads in the browser (**Chrome/Edge** recommended for their WebGPU support,
+which gives the best rendering of the avatar editor).
 
-> Las credenciales del `docker-compose.yml` son de **desarrollo local**. Cámbialas si
-> lo expones fuera de tu máquina.
+> The credentials in `docker-compose.yml` are for **local development**. Change them if
+> you expose this beyond your own machine.
 
 ---
 
-## 🧩 Arquitectura
+## 🧩 Architecture
 
 ```
-Navegador ─┬─ Web (Laravel 13 / PHP 8.3 + HoloCMS legacy in-process)   :8090
-           ├─ Cliente Shockwave  → DirPlayer (WASM)
-           │        │
-           │        └─ WebSocket ─→ proxy ─→ TCP ─→ Emulador (Mono+ODBC) :1232/:30000
-           ├─ Editor de avatares → Ruffle (WASM)
-           └─ DCRs / assets (nginx)                                      :8091
-                                  Base de datos: MariaDB                 :3307
+Browser ──┬─ Web (Laravel 13 / PHP 8.3 + legacy HoloCMS in-process)     :8090
+          ├─ Shockwave client   → DirPlayer (WASM)
+          │        │
+          │        └─ WebSocket ─→ proxy ─→ TCP ─→ Emulator (Mono+ODBC) :1232/:30000
+          ├─ Avatar editor      → Ruffle (WASM)
+          └─ DCRs / assets (nginx)                                       :8091
+                                 Database: MariaDB                        :3307
 ```
 
-### Estructura del repo
+### Repo layout
 
 ```
-apps/web/        Web moderna (Laravel 13) + HoloCMS legacy bajo /legacy
+apps/web/        Modern web (Laravel 13) + legacy HoloCMS under /legacy
 services/
-  emulator/      Holograph Emulator (.NET) — se compila con Mono en runtime
-assets/dcr/      Assets Shockwave del cliente v26 (.dcr / .cct)
-database/        Volcado de la BD + ajustes de arranque
-docker/          Dockerfiles de cada servicio
-docs/            Plan de modernización, fases y decisiones
+  emulator/      Holograph Emulator (.NET) — compiled with Mono at runtime
+assets/dcr/      v26 client Shockwave assets (.dcr / .cct)
+database/        DB dump + boot-time fixups
+docker/          Dockerfile per service
+docs/            Modernisation plan, phases and decisions
 ```
 
 ---
 
-## 🙏 Créditos
+## 🙏 Credits
 
-Este proyecto se apoya en el trabajo de mucha gente de la comunidad retro de Habbo:
+This project stands on the work of many people in the Habbo retro community:
 
-- **Pack base v26** — [HRWCMS](https://github.com/EudesFR/HRWCMS) (CMS HRW, Holograph
-  Emulator y DCRs).
-- **HoloCMS** — Meth0d · **Holograph Emulator** — Meth0d / equipo Holograph.
-- **[DirPlayer](https://github.com/igorlira/dirplayer-rs)** — emulador de Shockwave en
-  Rust/WASM, de igorlira (con el *bobba-xtra* de chameleonxxl).
-- **[Ruffle](https://ruffle.rs/)** — emulador de Flash en Rust/WASM.
+- **Base v26 pack** — [HRWCMS](https://github.com/EudesFR/HRWCMS) (HRW CMS, Holograph
+  Emulator and DCRs).
+- **HoloCMS** — Meth0d · **Holograph Emulator** — Meth0d / the Holograph team.
+- **[DirPlayer](https://github.com/igorlira/dirplayer-rs)** — Shockwave emulator in
+  Rust/WASM, by igorlira (with chameleonxxl's *bobba-xtra*).
+- **[Ruffle](https://ruffle.rs/)** — Flash emulator in Rust/WASM.
 
-Gracias a toda la comunidad que mantuvo viva la v26.
+Thanks to everyone who kept v26 alive.
 
 ---
 
-## ⚖️ Aviso legal
+## ⚖️ Legal notice
 
-Proyecto **personal, educativo y sin ánimo de lucro**, hecho por nostalgia. No está
-afiliado, asociado ni respaldado por **Sulake Oy**. *Habbo*, *Habbo Hotel* y los
-nombres, gráficos y assets relacionados son **propiedad de Sulake**. Si eres titular
-de derechos y quieres que se retire algo, abre un *issue*.
+A **personal, educational, non-commercial** project, made out of nostalgia. Not
+affiliated with, associated with or endorsed by **Sulake Oy**. *Habbo*, *Habbo Hotel*
+and the related names, graphics and assets are **property of Sulake**. If you are a
+rights holder and want something removed, please open an issue.
 
-El **código propio** de modernización (Laravel, Docker, integraciones) se publica con
-fines de aprendizaje. Los assets originales de Habbo **no** son míos ni se licencian
-aquí.
+The **original modernisation code** (Laravel, Docker, integrations) is published for
+learning purposes. The original Habbo assets are **not** mine and are **not** licensed
+here.
