@@ -42,3 +42,6 @@ apps/web/legacy/habbo-imaging/cache/
 /.playwright-mcp/
 .DS_Store
 *.log
+
+# Capturas de verificación (no versionar)
+/*.png
