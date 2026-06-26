@@ -57,6 +57,18 @@ Leyenda: ✅ migrada y probada · 🟡 en curso · ⬜ pendiente (servida por el
 
 ---
 
+## Fidelidad visual — CSS/JS por página (IMPORTANTE)
+Cada página del legacy carga, además del set común del chrome (style/buttons/boxes/
+tooltips/welcome/personal/group/rooms), **CSS/JS específicos** sin los cuales el contenido
+sale **descuadrado**. Al migrar una página hay que reproducirlos vía `@push('head')`:
+- `me` → `minimail.css` + `minimail.js` + `habboclub.js` (caja de mensajes).
+- `account` → `settings.css` + `friendmanagement.css` + `settings.js` (editor de figura).
+- `club` → `habboclub.js`.
+- (community/credits/news/user_profile: con el set común basta.)
+**Cómo detectarlos:** activar `DISABLE_PHP_REDIRECTS=1` en `.env`, abrir `pagina.php`
+(sirve el legacy) y comparar su `<head>` con el del nativo. Otro gotcha: no duplicar
+`#navi2-container` (lo añade el layout; la vista solo aporta el `<ul>` vía la partición).
+
 ## Fidelidad visual (chrome)
 - `layouts.community` reproduce el chrome del legacy; la barra de 2º nivel **#navi2** se
   centraliza en `partials/navi2.blade.php` (secciones home/community/credits) y cada
