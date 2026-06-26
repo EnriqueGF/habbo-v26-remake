@@ -44,10 +44,22 @@ Leyenda: ✅ migrada y probada · 🟡 en curso · ⬜ pendiente (servida por el
 | `user_profile.php` (myhabbo) | user_profile.php | ⬜ (diferido: motor de widgets JS; servido por legacy) | |
 
 ## Comunidad
-| Ruta | Legacy | Estado |
-|------|--------|--------|
-| `/community.php`, `/forum.php`, `/group_*`, `/groups_*` | varios | ⬜ |
-| `/applications.php`, `/invite.php` | varios | ⬜ |
+| Ruta nativa | Legacy | Estado | Tests |
+|-------------|--------|--------|-------|
+| `/forum` (foro global, server-rendered) | forum.php | ✅ | ✅ |
+| `/applications` (+ `/applications/{id}` GET/POST) | applications.php | ✅ | ✅ |
+| `/community` | community.php | ✅ (núcleo) | ✅ |
+| **Sistema de grupos** (`/groups/{id}` perfil, `group_forum`) | group_profile.php, group_forum.php | ⬜ **diferido como unidad** | |
+| Fragmentos AJAX (invite, randomgroups, groups_delete…) | invite.php, randomgroups.php, groups_*delete* | ⬜ (van con habblet) | |
+
+**Por qué se difiere el sistema de grupos como unidad:** `group_profile.php` es el motor de
+widgets MyHabbo con drag-and-drop (playground/`initView`/widgets JS), igual que el ya diferido
+`user_profile.php`; `group_forum.php` comparte su cabecera de pestañas de grupo (badge, miembros,
+botones unirse/abandonar). Migrar uno sin el otro deja la UI de grupos a medias e incoherente.
+Se migrarán juntos —junto con las acciones `habblet/ajax_groups_*`— cuando se aborde el motor de
+homes/widgets. El foro global (`/forum`) sí es independiente y server-rendered, por eso ya está.
+Las acciones del foro ("Nuevo tema", responder) siguen sirviéndose por `habblet/*` (legacy) y
+funcionan con normalidad sobre la vista nativa.
 
 ## Housekeeping (admin) — máxima prioridad de seguridad
 | Ruta | Legacy | Estado |

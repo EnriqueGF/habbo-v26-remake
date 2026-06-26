@@ -17,7 +17,7 @@
         <li class="{{ $active === 'comunidad' ? 'selected' : '' }}">@if($active === 'comunidad')Comunidad @else<a href="/community">Comunidad</a>@endif</li>
         <li class="{{ $active === 'noticias' ? 'selected' : '' }}">@if($active === 'noticias')Noticias @else<a href="/news">Noticias</a>@endif</li>
         <li class="{{ $active === 'staff' ? 'selected' : '' }}">@if($active === 'staff')El equipo @else<a href="/staff">El equipo</a>@endif</li>
-        <li class="{{ $active === 'forum' ? 'selected' : '' }}">@if($active === 'forum')Forum @else<a href="/forum.php">Forum</a>@endif</li>
+        <li class="{{ $active === 'forum' ? 'selected' : '' }}">@if($active === 'forum')Forum @else<a href="/forum">Forum</a>@endif</li>
         <li class="{{ $active === 'tags' ? 'selected' : '' }}">@if($active === 'tags')Tags @else<a href="/tags">Tags</a>@endif</li>
         <li class="{{ $active === 'stats' ? 'selected last' : 'last' }}">@if($active === 'stats')Estad&iacute;sticas @else<a href="/statistics">Estad&iacute;sticas</a>@endif</li>
     @elseif($section === 'credits')

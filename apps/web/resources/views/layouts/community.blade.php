@@ -167,6 +167,9 @@
     </div>
 </div>
 
+{{-- Diálogos/markup que el legacy emite a nivel de body, tras el footer (p.ej. el foro). --}}
+@stack('body_end')
+
 <script type="text/javascript">
 try { HabboView.run(); } catch (e) {}
 </script>

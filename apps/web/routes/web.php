@@ -1,6 +1,7 @@
 <?php
 
 use App\Http\Controllers\AccountController;
+use App\Http\Controllers\ApplicationsController;
 use App\Http\Controllers\Auth\LoginController;
 use App\Http\Controllers\BadgesController;
 use App\Http\Controllers\ClubController;
@@ -9,6 +10,7 @@ use App\Http\Controllers\CommunityController;
 use App\Http\Controllers\CreditsController;
 use App\Http\Controllers\DeleteHandController;
 use App\Http\Controllers\ForgotController;
+use App\Http\Controllers\ForumController;
 use App\Http\Controllers\HelpController;
 use App\Http\Controllers\MeController;
 use App\Http\Controllers\NewsController;
@@ -99,6 +101,12 @@ Route::middleware('legacy.user')->group(function () {
     Route::get('/statistics', [StatisticsController::class, 'index'])->name('statistics');
     Route::get('/staff', [StaffController::class, 'index'])->name('staff');
     Route::get('/tags', [TagsController::class, 'index'])->name('tags');
+    Route::get('/forum', [ForumController::class, 'index'])->name('forum');
+
+    // Solicitudes de staff (formulario de reclutamiento)
+    Route::get('/applications', [ApplicationsController::class, 'index'])->name('applications');
+    Route::get('/applications/{form}', [ApplicationsController::class, 'show'])->name('applications.show')->whereNumber('form');
+    Route::post('/applications/{form}', [ApplicationsController::class, 'submit'])->name('applications.submit')->whereNumber('form');
 
     Route::get('/privacy', [PageController::class, 'privacy'])->name('privacy');
     Route::get('/disclaimer', [PageController::class, 'disclaimer'])->name('disclaimer');
@@ -120,11 +128,18 @@ $legacyAliases = [
     'transactions.php' => 'transactions', 'deletehand.php' => 'deletehand',
     'collectables.php' => 'collectables', 'pixels.php' => 'pixels',
     'statistics.php' => 'statistics', 'staff.php' => 'staff', 'tags.php' => 'tags',
+    'forum.php' => 'forum',
     'register.php' => 'register', 'forgot.php' => 'forgot',
     'privacy.php' => 'privacy', 'disclaimer.php' => 'disclaimer',
 ];
 foreach ((env('DISABLE_PHP_REDIRECTS') ? [] : $legacyAliases) as $php => $name) {
     Route::get('/'.$php, fn () => redirect()->route($name, request()->query(), 301));
+}
+// applications.php?id=N lleva el id como query -> lo mapeamos a la URL REST limpia.
+if (! env('DISABLE_PHP_REDIRECTS')) {
+    Route::get('/applications.php', fn () => request()->filled('id')
+        ? redirect()->route('applications.show', ['form' => request('id')], 301)
+        : redirect()->route('applications', [], 301));
 }
 Route::match(['get', 'post'], '/logout.php', fn () => redirect()->route('logout'));
 
