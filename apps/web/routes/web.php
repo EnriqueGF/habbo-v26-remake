@@ -8,11 +8,13 @@ use App\Http\Controllers\CollectablesController;
 use App\Http\Controllers\CommunityController;
 use App\Http\Controllers\CreditsController;
 use App\Http\Controllers\DeleteHandController;
+use App\Http\Controllers\ForgotController;
 use App\Http\Controllers\HelpController;
 use App\Http\Controllers\MeController;
 use App\Http\Controllers\NewsController;
 use App\Http\Controllers\PageController;
 use App\Http\Controllers\PixelsController;
+use App\Http\Controllers\RegisterController;
 use App\Http\Controllers\ShopController;
 use App\Http\Controllers\StaffController;
 use App\Http\Controllers\StatisticsController;
@@ -49,6 +51,13 @@ Route::post('/', [LoginController::class, 'login'])->withoutMiddleware([
     EncryptCookies::class, StartSession::class, ShareErrorsFromSession::class, PreventRequestForgery::class,
 ]);
 Route::match(['get', 'post'], '/logout', [LoginController::class, 'logout'])->name('logout');
+
+// Páginas de invitado (chrome de login). Usan el grupo web (sesión + CSRF); los
+// formularios nativos llevan @csrf.
+Route::get('/register', [RegisterController::class, 'show'])->name('register');
+Route::post('/register', [RegisterController::class, 'store'])->name('register.store');
+Route::get('/forgot', [ForgotController::class, 'show'])->name('forgot');
+Route::post('/forgot', [ForgotController::class, 'submit'])->name('forgot.submit');
 
 /*
 |--------------------------------------------------------------------------
@@ -111,6 +120,7 @@ $legacyAliases = [
     'transactions.php' => 'transactions', 'deletehand.php' => 'deletehand',
     'collectables.php' => 'collectables', 'pixels.php' => 'pixels',
     'statistics.php' => 'statistics', 'staff.php' => 'staff', 'tags.php' => 'tags',
+    'register.php' => 'register', 'forgot.php' => 'forgot',
     'privacy.php' => 'privacy', 'disclaimer.php' => 'disclaimer',
 ];
 foreach ((env('DISABLE_PHP_REDIRECTS') ? [] : $legacyAliases) as $php => $name) {

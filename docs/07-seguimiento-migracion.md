@@ -12,7 +12,7 @@ Leyenda: ✅ migrada y probada · 🟡 en curso · ⬜ pendiente (servida por el
 | Runtime único PHP 8.3 + Laravel front controller + LegacyRunner | ✅ |
 | Rutas en `routes/web.php` (convencionales, nombradas, URLs limpias sin `.php`) | ✅ |
 | Redirecciones 301 `*.php` → ruta limpia (compatibilidad con enlaces legacy) | ✅ |
-| Layout Blade `layouts.community` (chrome logueado) + `layouts.guest` | ✅ |
+| Layout Blade `layouts.community` (logueado) + `layouts.guest` (login/registro) | ✅ |
 | `ChromeComposer` (datos del chrome: usuario, créditos, online, banners) | ✅ |
 | Modelo `User`, `LegacySession`, middleware `legacy.user` | ✅ |
 | BD de test `v26_test` (InnoDB) + CI (Pint + PHPUnit) | ✅ |
@@ -39,8 +39,8 @@ Leyenda: ✅ migrada y probada · 🟡 en curso · ⬜ pendiente (servida por el
 | `/statistics` | statistics.php | ✅ | ✅ |
 | `/staff` | staff.php | ✅ | ✅ |
 | `/tags` (display; alta de tag diferida) | tags.php | ✅ | ✅ |
-| `/register` | register.php | ⬜ | |
-| `/forgot` | forgot.php | ⬜ | |
+| `/register` (+ POST) | register.php | ✅ | ✅ |
+| `/forgot` (+ POST) | forgot.php | ✅ | ✅ |
 | `user_profile.php` (myhabbo) | user_profile.php | ⬜ (diferido: motor de widgets JS; servido por legacy) | |
 
 ## Comunidad

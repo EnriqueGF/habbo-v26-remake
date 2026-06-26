@@ -90,8 +90,8 @@
                     </form>
                     <div id="subnavi-login-help" class="clearfix">
                         <ul>
-                            <li class="register"><a href="/forgot.php">&iquest;Olvidaste tu contrase&ntilde;a?</a></li>
-                            <li><a href="/register.php">Reg&iacute;strate gratis</a></li>
+                            <li class="register"><a href="/forgot">&iquest;Olvidaste tu contrase&ntilde;a?</a></li>
+                            <li><a href="/register">Reg&iacute;strate gratis</a></li>
                         </ul>
                     </div>
                 </div>
@@ -104,7 +104,7 @@
                         @if($active === 'home')<strong>{{ $chromeUser->name }}</strong>@else<a href="/index.php">{{ $chromeUser->name }}</a>@endif<span></span>
                     </li>
                 @else
-                    <li id="tab-register-now"><a href="/register.php" target="_self">Registro</a><span></span></li>
+                    <li id="tab-register-now"><a href="/register" target="_self">Registro</a><span></span></li>
                 @endif
 
                 <li class="{{ $active === 'community' ? 'selected' : '' }}">
