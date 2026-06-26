@@ -12,6 +12,8 @@ use App\Http\Controllers\DeleteHandController;
 use App\Http\Controllers\ForgotController;
 use App\Http\Controllers\ForumController;
 use App\Http\Controllers\HelpController;
+use App\Http\Controllers\Housekeeping\AuthController as HkAuthController;
+use App\Http\Controllers\Housekeeping\DashboardController as HkDashboardController;
 use App\Http\Controllers\MeController;
 use App\Http\Controllers\NewsController;
 use App\Http\Controllers\PageController;
@@ -110,6 +112,27 @@ Route::middleware('legacy.user')->group(function () {
 
     Route::get('/privacy', [PageController::class, 'privacy'])->name('privacy');
     Route::get('/disclaimer', [PageController::class, 'disclaimer'])->name('disclaimer');
+});
+
+/*
+|--------------------------------------------------------------------------
+| Housekeeping (panel de administración) — URLs limpias /housekeeping/*
+|--------------------------------------------------------------------------
+| Login/guard nativos con sesión `acp` compartida con el legacy: los módulos del
+| panel aún no migrados siguen sirviéndose por el LegacyRunner vía
+| `/housekeeping/index.php?p=...` y los assets estáticos (css/js/images) también.
+| El guard housekeeping.auth revalida rango > 5 en cada petición (Eloquent, sin la
+| SQLi del legacy). Los módulos sensibles usarán `housekeeping.auth:7`.
+*/
+Route::prefix('housekeeping')->group(function () {
+    Route::get('/', [HkAuthController::class, 'index'])->name('hk.index');
+    Route::get('/login', [HkAuthController::class, 'showLogin'])->name('hk.login');
+    Route::post('/login', [HkAuthController::class, 'login'])->name('hk.login.submit');
+    Route::match(['get', 'post'], '/logout', [HkAuthController::class, 'logout'])->name('hk.logout');
+
+    Route::middleware('housekeeping.auth')->group(function () {
+        Route::match(['get', 'post'], '/dashboard', [HkDashboardController::class, 'index'])->name('hk.dashboard');
+    });
 });
 
 /*

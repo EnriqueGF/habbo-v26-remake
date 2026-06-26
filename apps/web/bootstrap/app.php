@@ -1,6 +1,7 @@
 <?php
 
 use App\Http\Middleware\BindLegacyUser;
+use App\Http\Middleware\HousekeepingAuth;
 use Illuminate\Foundation\Application;
 use Illuminate\Foundation\Configuration\Exceptions;
 use Illuminate\Foundation\Configuration\Middleware;
@@ -16,6 +17,7 @@ return Application::configure(basePath: dirname(__DIR__))
         // Resuelve el usuario actual desde la sesión legacy en rutas nativas.
         $middleware->alias([
             'legacy.user' => BindLegacyUser::class,
+            'housekeeping.auth' => HousekeepingAuth::class,
         ]);
     })
     ->withExceptions(function (Exceptions $exceptions): void {

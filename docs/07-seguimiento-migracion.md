@@ -62,9 +62,24 @@ Las acciones del foro ("Nuevo tema", responder) siguen sirviéndose por `habblet
 funcionan con normalidad sobre la vista nativa.
 
 ## Housekeeping (admin) — máxima prioridad de seguridad
-| Ruta | Legacy | Estado |
-|------|--------|--------|
-| `/housekeeping/*` (dashboard, users, bans, content, config, logs) | housekeeping/* | ⬜ |
+Estrategia: shell nativo seguro + módulos migrados a Eloquent (mata la SQLi del legacy).
+URLs limpias `/housekeeping/*`. Los módulos aún no migrados siguen sirviéndose por el
+LegacyRunner vía `/housekeeping/index.php?p=...` (y sus assets css/js/images), autenticados
+con la MISMA sesión `acp` que fija el login nativo, así el panel sigue operativo entero.
+
+| Pieza / Ruta | Legacy | Estado | Tests |
+|--------------|--------|--------|-------|
+| **Cimientos**: login nativo + guard `housekeeping.auth` (revalida rango>5 en cada petición, Eloquent) + sesión `acp` compartida + `layouts.housekeeping` (top-tabs/memberbar/footer) | index.php (auth), login.php, subheader/header/footer.php | ✅ | ✅ (control de acceso) |
+| `/housekeeping` (login o redirect), `/housekeeping/login`, `/housekeeping/logout` | login.php | ✅ | ✅ |
+| `/housekeeping/dashboard` | dashboard.php | ✅ (verificado pixel-idéntico) | ✅ |
+| Helpers reutilizables `CmsSettings` (FetchServerSetting/FetchCMSSetting/getContent) + `StaffLog` (system_stafflog) | core.php | ✅ | — |
+| Módulos pendientes (~50): server, site/cms_config, content_tool, banners, faq, news_manage/compose, users, edituser, bantool/banlist/unban, givecredits, vouchers, ranktool, badgetool, logs, alerts, massmail, collectables, recommended, publicrooms, appforms, campaigns, db* (sysadmin), … | housekeeping/* | ⬜ |
+
+**Modelo de seguridad migrado:** todas las consultas con Eloquent/Query Builder parametrizado
+(elimina la SQLi del legacy, que concatenaba `$admin_username`, `$_POST`, etc.). El guard
+acepta rango mínimo por módulo (`housekeeping.auth:7`) para los módulos sensibles, igual que
+el legacy degradaba esos `p` a `access_denied`. **Nota:** en la BD viva el usuario `admin` está
+en rango 3 (no puede entrar al panel); súbelo a >5 para usarlo (en `v26_test` es rango 7).
 
 ## AJAX (habblet)
 | Ruta | Legacy | Estado |
