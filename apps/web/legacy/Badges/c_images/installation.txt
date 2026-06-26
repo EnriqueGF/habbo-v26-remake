@@ -1,0 +1,10 @@
+Hello. 
+
+Installation Steps:
+
+1: double click on you xampp control panel.
+2: Look towards the right of the control panel and click on "explore".
+3:Click on "htdocs".
+4:locate a folder called c_images and delete it.
+5:drag and drop this c_images file into your htdocs folder.
+6: Enjoy all of your Transparent badges.

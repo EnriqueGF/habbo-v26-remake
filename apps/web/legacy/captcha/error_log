@@ -1,0 +1,11 @@
+[15-Mar-2010 21:21:04] PHP Fatal error:  Call to undefined function  imagettfbbox() in /home/hrwhosto/public_html/cms2/captcha/CaptchaSecurityImages.php on line 60
+[21-Mar-2010 01:03:18] PHP Fatal error:  Call to undefined function  imagettfbbox() in /home/hrwhosto/public_html/cms2/captcha/CaptchaSecurityImages.php on line 60
+[21-Mar-2010 16:04:42] PHP Fatal error:  Call to undefined function  imagettfbbox() in /home/hrwhosto/public_html/cms2/captcha/CaptchaSecurityImages.php on line 60
+[21-Mar-2010 16:15:10] PHP Fatal error:  Call to undefined function  imagettfbbox() in /home/hrwhosto/public_html/cms2/captcha/CaptchaSecurityImages.php on line 60
+[21-Mar-2010 16:16:21] PHP Fatal error:  Call to undefined function  imagettfbbox() in /home/hrwhosto/public_html/cms2/captcha/CaptchaSecurityImages.php on line 60
+[21-Mar-2010 16:17:56] PHP Fatal error:  Call to undefined function  imagettfbbox() in /home/hrwhosto/public_html/cms2/captcha/CaptchaSecurityImages.php on line 60
+[21-Mar-2010 16:19:27] PHP Fatal error:  Call to undefined function  imagettfbbox() in /home/hrwhosto/public_html/cms2/captcha/CaptchaSecurityImages.php on line 60
+[21-Mar-2010 16:21:48] PHP Fatal error:  Call to undefined function  imagettfbbox() in /home/hrwhosto/public_html/cms2/captcha/CaptchaSecurityImages.php on line 60
+[21-Mar-2010 16:24:19] PHP Fatal error:  Call to undefined function  imagettfbbox() in /home/hrwhosto/public_html/cms2/captcha/CaptchaSecurityImages.php on line 60
+[21-Mar-2010 16:29:59] PHP Fatal error:  Call to undefined function  imagettfbbox() in /home/hrwhosto/public_html/cms2/captcha/CaptchaSecurityImages.php on line 60
+[21-Mar-2010 16:32:05] PHP Fatal error:  Call to undefined function  imagettfbbox() in /home/hrwhosto/public_html/cms2/captcha/CaptchaSecurityImages.php on line 60

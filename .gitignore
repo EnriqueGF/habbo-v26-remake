@@ -1,0 +1,44 @@
+# ===== Backups =====
+/backups/
+
+# ===== Artefactos de build =====
+**/node_modules/
+**/target/
+**/.cache/
+
+# dirplayer (proyecto Rust/WASM upstream, repo embebido / futuro submódulo):
+# no versionar su árbol aquí.
+/dirplayer-rs/
+/services/dirplayer/
+
+# ===== Emulador (.NET) — se compila en runtime =====
+/EMU/bin/
+/EMU/obj/
+/EMU/holo.exe
+EMU/*.suo
+/services/emulator/bin/
+/services/emulator/obj/
+/services/emulator/holo.exe
+
+# ===== Laravel (apps/web) =====
+/apps/web/vendor/
+/apps/web/node_modules/
+/apps/web/public/build/
+/apps/web/public/hot
+/apps/web/storage/*.key
+/apps/web/storage/framework/cache/data/*
+/apps/web/storage/framework/sessions/*
+/apps/web/storage/framework/views/*
+/apps/web/storage/logs/*
+/apps/web/.env
+/apps/web/.phpunit.result.cache
+/apps/web/.phpunit.cache
+
+# ===== Caché de imágenes generada (habbo-imaging) =====
+CMS/habbo-imaging/cache/
+apps/web/legacy/habbo-imaging/cache/
+
+# ===== Herramientas locales =====
+/.playwright-mcp/
+.DS_Store
+*.log

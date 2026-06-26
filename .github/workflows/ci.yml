@@ -1,0 +1,59 @@
+name: CI
+
+on:
+  push:
+    branches: [master]
+  pull_request:
+
+jobs:
+  test:
+    runs-on: ubuntu-latest
+    defaults:
+      run:
+        working-directory: apps/web
+
+    services:
+      mariadb:
+        image: mariadb:10.6
+        env:
+          MARIADB_ROOT_PASSWORD: habboroot
+          MARIADB_DATABASE: v26
+          MARIADB_USER: habbo
+          MARIADB_PASSWORD: habbo
+        ports:
+          - 3306:3306
+        options: >-
+          --health-cmd="healthcheck.sh --connect --innodb_initialized"
+          --health-interval=5s --health-timeout=5s --health-retries=20
+
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Setup PHP 8.3
+        uses: shivammathur/setup-php@v2
+        with:
+          php-version: '8.3'
+          extensions: mysqli, pdo_mysql, gd, sockets, zip
+          tools: composer:v2
+
+      - name: Preparar BD de test (InnoDB)
+        working-directory: .
+        env:
+          DB_HOST: 127.0.0.1
+          DB_PORT: 3306
+          DB_ROOT_USER: root
+          DB_ROOT_PASSWORD: habboroot
+          DB_TEST: v26_test
+        run: bash database/setup-test-db.sh
+
+      - name: Instalar dependencias
+        run: composer install --no-interaction --prefer-dist --no-progress
+
+      - name: Comprobar formato (Pint)
+        run: ./vendor/bin/pint --test
+
+      - name: Tests (PHPUnit)
+        env:
+          DB_HOST: 127.0.0.1
+          DB_PORT: 3306
+        run: php artisan test

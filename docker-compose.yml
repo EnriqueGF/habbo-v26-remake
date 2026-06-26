@@ -1,0 +1,97 @@
+# Habbo V26 — stack modernizado (runtime único PHP 8.3).
+# La web la sirve Laravel (servicio "web"); el HoloCMS legacy se ejecuta in-process
+# vía LegacyRunner mientras se estrangula. Ya no existe el contenedor PHP 5.6.
+# Estructura: apps/web (Laravel) · services/ · assets/ · database/ · docker/. Ver /docs.
+services:
+  db:
+    image: mariadb:10.6
+    container_name: habbo_db
+    restart: unless-stopped
+    environment:
+      MARIADB_ROOT_PASSWORD: habboroot
+      MARIADB_DATABASE: v26
+      MARIADB_USER: habbo
+      MARIADB_PASSWORD: habbo
+    command: >
+      --character-set-server=latin1
+      --collation-server=latin1_general_ci
+      --sql-mode=NO_ENGINE_SUBSTITUTION
+    volumes:
+      - dbdata:/var/lib/mysql
+      - ./database/seed/holodb.sql:/docker-entrypoint-initdb.d/01-holodb.sql:ro
+      - ./database/fixups/02-fixups.sql:/docker-entrypoint-initdb.d/02-fixups.sql:ro
+      - ./database/fixups/03-admin.sql:/docker-entrypoint-initdb.d/03-admin.sql:ro
+    ports:
+      - "3307:3306"
+    healthcheck:
+      test: ["CMD", "healthcheck.sh", "--connect", "--innodb_initialized"]
+      interval: 5s
+      timeout: 5s
+      retries: 20
+
+  # Front controller único: Laravel 13 (PHP 8.3) + HoloCMS legacy in-process.
+  web:
+    build:
+      context: ./docker/web
+      args:
+        APACHE_DOCROOT: /var/www/html/public
+    container_name: habbo_web
+    restart: unless-stopped
+    depends_on:
+      db:
+        condition: service_healthy
+    volumes:
+      - ./apps/web:/var/www/html
+    ports:
+      - "8090:80"
+
+  dcrs:
+    image: nginx:alpine
+    container_name: habbo_dcrs
+    restart: unless-stopped
+    volumes:
+      - ./assets/dcr:/usr/share/nginx/html:ro
+      - ./docker/dcr/default.conf:/etc/nginx/conf.d/default.conf:ro
+    ports:
+      - "8091:80"
+
+  proxy:
+    build: ./docker/ws-proxy
+    container_name: habbo_proxy
+    restart: unless-stopped
+    depends_on:
+      - emu
+    environment:
+      GAME_WS_PORT: "8092"
+      GAME_TCP_HOST: emu
+      GAME_TCP_PORT: "1232"
+      MUS_WS_PORT: "8093"
+      MUS_TCP_HOST: emu
+      MUS_TCP_PORT: "30000"
+    ports:
+      - "8092:8092"
+      - "8093:8093"
+
+  emu:
+    build: ./docker/emulator
+    container_name: habbo_emu
+    restart: unless-stopped
+    depends_on:
+      db:
+        condition: service_healthy
+    environment:
+      DB_HOST: db
+      DB_PORT: "3306"
+      DB_NAME: v26
+      DB_USER: habbo
+      DB_PASS: habbo
+    volumes:
+      - ./services/emulator:/emu
+    ports:
+      - "1232:1232"
+      - "30000:30000"
+    tty: true
+    stdin_open: true
+
+volumes:
+  dbdata:

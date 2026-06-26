@@ -1,0 +1,3 @@
+RewriteEngine On
+RewriteRule ^avatarimage$ avatarimage.php [L,QSA]
+RewriteRule ^avatar/(.+)$ avatarimage.php?img=$1 [L]
