@@ -1,5 +1,5 @@
 <p align="center">
-  <img src="docs/img/banner.png" alt="Habbo V26 Remake" width="820">
+  <img src="docs/img/hotel.png" alt="Habbo Hotel v26" width="756">
 </p>
 
 <h1 align="center">Habbo V26 · Remake</h1>
